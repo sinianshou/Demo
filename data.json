@@ -1,0 +1,49 @@
+{
+    "HistoryReocrd": [
+        {
+            "OtherUserID": 5,
+            "OtherUserName": "围坐",
+            "OtherUserIcon": "http: //f2f.powerinfo.net: 8345/static/userIcons/5-1539055708537head.jpg",
+            "OtherSDKUniqueID": "",
+            "Time": "2018-10-09T03: 33: 10.000Z",
+            "RecordType": 1
+        },
+        {
+            "GroupID": 1,
+            "GroupName": "Group1",
+            "CreatorID": 1,
+            "CreatorUserName": "英俊",
+            "CreatorSDKUniqueID": "14334582",
+            "Time": "2018-10-09T03: 07: 09.000Z",
+            "RecordType": 2
+        },
+        {
+            "MeetingID": 169,
+            "MeetingName": "I’m going",
+            "HistoryID": 172,
+            "Time": "2018-09-30T03: 00: 14.000Z",
+            "CreatorID": 1,
+            "CreatorUserName": "英俊",
+            "CreatorSDKUniqueID": "14334582",
+            "RecordType": 3
+        },
+        {
+            "MeetingID": 93,
+            "MeetingName": "回音",
+            "HistoryID": 90,
+            "Time": "2018-09-25T09: 29: 55.000Z",
+            "CreatorID": 3,
+            "CreatorUserName": "guanjie",
+            "CreatorSDKUniqueID": "",
+            "RecordType": 3
+        },
+        {
+            "OtherUserID": 1,
+            "OtherUserName": "英俊",
+            "OtherUserIcon": "http: //f2f.powerinfo.net: 8345/static/userIcons/default_user.png",
+            "OtherSDKUniqueID": "14334582",
+            "Time": "2018-09-20T08: 06: 11.000Z",
+            "RecordType": 1
+        }
+    ]
+}
