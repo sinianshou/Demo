@@ -3,6 +3,13 @@ import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-nat
 import { RNCamera } from 'react-native-camera';
 
 export default class ExampleApp extends PureComponent {
+
+  /**
+   * 将导航栏的返回按钮统一为黑色
+   *
+   * @static
+   * @memberof ExampleApp
+   */
   static navigationOptions = {
     headerBackTitleStyle:{color: "black"},
     headerTintColor: "black",
@@ -16,7 +23,9 @@ export default class ExampleApp extends PureComponent {
           }}
           style={styles.preview}
           type={RNCamera.Constants.Type.back}
+          {/*闪光灯开启 */}
           flashMode={RNCamera.Constants.FlashMode.on}
+          {/*安卓获取相机录像权限 */}
           androidCameraPermissionOptions={{
             title: 'Permission to use camera',
             message: 'We need your permission to use your camera',
@@ -33,6 +42,7 @@ export default class ExampleApp extends PureComponent {
             console.log(barcodes);
           }}
         />
+        {/**相机下方的SNAP按钮 */}
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center', backgroundColor: "white" }}>
           <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
             <Text style={{ fontSize: 14}}> SNAP </Text>
@@ -42,6 +52,11 @@ export default class ExampleApp extends PureComponent {
     );
   }
 
+  /**
+   *按下SNAP按钮时的相应方法，打印url
+   *
+   * @memberof ExampleApp
+   */
   takePicture = async() => {
     if (this.camera) {
       const options = { quality: 0.5, base64: true };
@@ -50,7 +65,7 @@ export default class ExampleApp extends PureComponent {
     }
   };
 }
-
+// 各个视图的style
 const styles = StyleSheet.create({
   container: {
     flex: 1,

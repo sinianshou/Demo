@@ -1,3 +1,4 @@
+// 初始数据
 var LIST_DATA = {
     "HistoryReocrd": [
         {
@@ -53,8 +54,14 @@ import { Image, ImageBackground, TouchableOpacity, FlatList, StyleSheet, Text, V
 import imgSr from './imageSource'
 
 export default class MeetingsList extends Component {
+
+  /**
+   *关于导航栏样式的制定
+   *
+   * @static
+   * @memberof MeetingsList
+   */
   static navigationOptions = {
-    // header: null,
     headerStyle: {
       height:0.1,
       backgroundColor:"#274589", 
@@ -66,10 +73,16 @@ export default class MeetingsList extends Component {
       shadowOffset: {width: 0, height: 0}, 
     },
   };
+
+/**
+ *Creates an instance of MeetingsList.
+ * @param {*} props
+ * @memberof MeetingsList
+ */
 constructor(props) {
     super(props);
     this.state = {
-      likedNum: 0,
+      likedNum: 0,  //收藏的数量，用于取消收藏时移动item用
       data: LIST_DATA.HistoryReocrd,
     };
   }
@@ -78,11 +91,13 @@ render() {
   var _this = this
     return (
       <View style={styles.mainView}>
+        {/* 以图片为背景的header*/}
       <ImageBackground 
         source={imgSr['headerbg']}
         style={styles.header}>
         <Text style={styles.headerTitle}>会议与聊天</Text>
         <View style={styles.headerBnsBox}>
+        {/* 自定义召开会议点击按钮*/}
           <TouchableOpacity 
             onPress={()=>{_this.holdMeeting()}}
             style={styles.headerBnBox}>
@@ -99,6 +114,7 @@ render() {
           </View>
         </View>
       </ImageBackground>
+        {/* 长列表显示数据数组 */}
       <FlatList
         extraData={this.state}
         data={this.state.data}
@@ -111,6 +127,13 @@ render() {
     );
   }
 
+  /**
+   * 渲染item视图
+   *
+   * @param {*} {item, index} 对应的item数据以及item的索引
+   * @returns 
+   * @memberof MeetingsList
+   */
   renderItem({item, index}){
     var _this = this;
   	var userName = "";
@@ -120,7 +143,11 @@ render() {
     var likedBnImg;
     var date = item.Time;
     date = date.substr(0,10);
-	  date = date.split("-").join("/")
+    date = date.split("-").join("/")
+    /*
+      通过不同的RecordType来赋值不同的name，头像，creator和groupID，
+      并为group和meeting添加收藏按钮
+    */
     switch(item.RecordType) {
      case 1:{
      	userName = item.OtherUserName
@@ -187,12 +214,24 @@ render() {
     );
   }
 
+  /**
+   *渲染分隔线
+   *
+   * @returns
+   * @memberof MeetingsList
+   */
   renderSeparator(){
     return(
       <View style={{height: 1, flex: 1, backgroundColor: '#E8E8E8'}}/>
     )
   }
 
+  /**
+   *渲染header
+   *
+   * @returns
+   * @memberof MeetingsList
+   */
   renderHeader(){
     var _this = this;
     return(
@@ -220,6 +259,13 @@ render() {
     )
   }
 
+  /**
+   *点击收藏按钮相应的方法，使该item数据表示为收藏或者取消收藏
+   *
+   * @param {*} item 对应的item数据
+   * @param {*} index 对应的索引
+   * @memberof MeetingsList
+   */
   onPressLikeBn(item, index){
     var data = this.state.data
     var item = data[index]
@@ -240,6 +286,11 @@ render() {
     console.log("like is "+item.liked)
   }
 
+  /**
+   *召开会议按钮相应的方法，跳转的Meeting页面
+   *
+   * @memberof MeetingsList
+   */
   holdMeeting(){
     const { navigate } = this.props.navigation;
     console.log("holdMeeting")
@@ -247,6 +298,7 @@ render() {
   }
 }
 
+//各个视图的样式 
 var styles = StyleSheet.create({
   mainView:{
     flex: 1,
