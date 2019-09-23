@@ -51,7 +51,7 @@ var LIST_DATA = {
 
 import React, { Component } from "react";
 import { Image, ImageBackground, TouchableOpacity, FlatList, StyleSheet, Text, View } from "react-native";
-import imgSr from './imageSource'
+import imgSr from '../sources/imageSource'
 
 export default class MeetingsList extends Component {
 

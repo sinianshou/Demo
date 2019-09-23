@@ -23,9 +23,9 @@ export default class ExampleApp extends PureComponent {
           }}
           style={styles.preview}
           type={RNCamera.Constants.Type.back}
-          {/*闪光灯开启 */}
+          // 闪光灯开启 
           flashMode={RNCamera.Constants.FlashMode.on}
-          {/*安卓获取相机录像权限 */}
+          // 安卓获取相机录像权限 
           androidCameraPermissionOptions={{
             title: 'Permission to use camera',
             message: 'We need your permission to use your camera',
@@ -42,7 +42,7 @@ export default class ExampleApp extends PureComponent {
             console.log(barcodes);
           }}
         />
-        {/**相机下方的SNAP按钮 */}
+        {/* 相机下方的SNAP按钮 */}
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center', backgroundColor: "white" }}>
           <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
             <Text style={{ fontSize: 14}}> SNAP </Text>
