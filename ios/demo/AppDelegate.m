@@ -11,7 +11,15 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
+#import <PI_iRoom/PIiRoom.h>
+#import <PI_iRoom/PIiOSLogger.h>
+
 @implementation AppDelegate
+
+void uncaughtExceptionHandler(NSException* exception) {
+    NSLog(@"CRASH: %@", exception);
+    NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -27,7 +35,20 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+  
+  [self config];
+  
   return YES;
+}
+
+-(void)config{
+    
+    [PIiOSLogger setLogToConsole:true];
+    
+    NSString *logPath = NSTemporaryDirectory();
+    [PIiRoom initialize:@"iRoom" andNdSelect:999 andRSPort:80 andPISPort:81 andDomain:@"" andRSTimeoutThreshold:5000 andLogPath:logPath];
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
