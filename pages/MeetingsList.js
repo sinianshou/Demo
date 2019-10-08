@@ -297,8 +297,7 @@ render() {
   holdMeeting(){
     console.log("holdMeeting")
     const { navigate } = this.props.navigation;
-    // navigate('Meeting')
-    navigate('PeerView')
+    navigate('Meeting')
     SDKManager.testMethod('lyz --- test', 12, (error, str) => {
       if (error) {
         console.error(error);

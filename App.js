@@ -4,7 +4,6 @@ import React, {Component}from 'react';
 import { AppRegistry, View, Text } from "react-native";
 import MeetingsList from './pages/MeetingsList'
 import Meeting from './pages/Meeting'
-import PeerView from './pages/PeerView'
 
 const MeetingApp = createStackNavigator({
   MeetingsList: {
@@ -12,9 +11,6 @@ const MeetingApp = createStackNavigator({
   },
   Meeting: {
     screen: Meeting,
-  },
-  PeerView: {
-    screen: PeerView,
   },
 }, {
     initialRouteName: 'MeetingsList',

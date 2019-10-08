@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import PeerView from './PeerView'
 
 export default class ExampleApp extends PureComponent {
 
@@ -17,31 +18,7 @@ export default class ExampleApp extends PureComponent {
   render() {
     return (
       <View style={styles.container}>
-        <RNCamera
-          ref={ref => {
-            this.camera = ref;
-          }}
-          style={styles.preview}
-          type={RNCamera.Constants.Type.back}
-          // 闪光灯开启 
-          flashMode={RNCamera.Constants.FlashMode.on}
-          // 安卓获取相机录像权限 
-          androidCameraPermissionOptions={{
-            title: 'Permission to use camera',
-            message: 'We need your permission to use your camera',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-          androidRecordAudioPermissionOptions={{
-            title: 'Permission to use audio recording',
-            message: 'We need your permission to use your audio',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-          onGoogleVisionBarcodesDetected={({ barcodes }) => {
-            console.log(barcodes);
-          }}
-        />
+        <PeerView style={styles.preview}/>
         {/* 相机下方的SNAP按钮 */}
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center', backgroundColor: "white" }}>
           <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>

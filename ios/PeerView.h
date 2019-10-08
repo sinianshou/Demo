@@ -11,7 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PeerView : UIView
--(instancetype)shared;
 @end
 
 NS_ASSUME_NONNULL_END
