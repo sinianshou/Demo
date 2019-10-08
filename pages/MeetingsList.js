@@ -52,6 +52,9 @@ var LIST_DATA = {
 import React, { Component } from "react";
 import { Image, ImageBackground, TouchableOpacity, FlatList, StyleSheet, Text, View } from "react-native";
 import imgSr from '../sources/imageSource'
+import {NativeModules} from 'react-native';
+
+const SDKManager = NativeModules.SDKManager;
 
 export default class MeetingsList extends Component {
 
@@ -292,9 +295,17 @@ render() {
    * @memberof MeetingsList
    */
   holdMeeting(){
-    const { navigate } = this.props.navigation;
     console.log("holdMeeting")
-    navigate('Meeting')
+    const { navigate } = this.props.navigation;
+    // navigate('Meeting')
+    navigate('PeerView')
+    SDKManager.testMethod('lyz --- test', 12, (error, str) => {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log('lyz --- js'+str);
+      }
+    });
   }
 }
 

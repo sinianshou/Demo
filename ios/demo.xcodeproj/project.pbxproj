@@ -19,6 +19,8 @@
 		2DCD954D1E0B4F2C00145EB5 /* demoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* demoTests.m */; };
 		5F7978D3CBDA2D7037079D3A /* libPods-demo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FF360320129E0DC7DC68E1B /* libPods-demo-tvOS.a */; };
 		C24E4ADC772C5C9A37FECE41 /* libPods-demo-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B65CCFD75F80F9A8C85AAD3 /* libPods-demo-tvOSTests.a */; };
+		EB0A3A2C234C1ABC00E7FCFF /* PeerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0A3A2B234C1ABC00E7FCFF /* PeerView.m */; };
+		EB0A3A2F234C1B8E00E7FCFF /* PeerViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0A3A2E234C1B8E00E7FCFF /* PeerViewManager.m */; };
 		EB315D592341E5E800F23BDD /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB315D582341E5E800F23BDD /* VideoToolbox.framework */; };
 		EB315D702341E60200F23BDD /* PI_iLiveBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB315D5F2341E5FA00F23BDD /* PI_iLiveBase.framework */; };
 		EB315D712341E60200F23BDD /* PI_iLiveBase.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EB315D5F2341E5FA00F23BDD /* PI_iLiveBase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -42,6 +44,7 @@
 		EB315D842341E61100F23BDD /* Starscream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EB315D622341E5FB00F23BDD /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EB315D852341E61200F23BDD /* transcoder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB315D5A2341E5FA00F23BDD /* transcoder.framework */; };
 		EB315D862341E61200F23BDD /* transcoder.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EB315D5A2341E5FA00F23BDD /* transcoder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EB45E9652341F553002951B1 /* SDKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EB45E9642341F553002951B1 /* SDKManager.m */; };
 		FBBE540B76B9066B6CDA4FE9 /* libPods-demoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E15964E64C565CDFE408A1B /* libPods-demoTests.a */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +115,10 @@
 		BB16EFD06B195CCC86F83359 /* Pods-demo-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-demo-tvOS/Pods-demo-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C9E036092FA471BC255CA1CD /* Pods-demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo.release.xcconfig"; path = "Target Support Files/Pods-demo/Pods-demo.release.xcconfig"; sourceTree = "<group>"; };
 		D615F38CB6138995069083C2 /* Pods-demoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demoTests.debug.xcconfig"; path = "Target Support Files/Pods-demoTests/Pods-demoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EB0A3A2A234C1ABC00E7FCFF /* PeerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PeerView.h; sourceTree = "<group>"; };
+		EB0A3A2B234C1ABC00E7FCFF /* PeerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeerView.m; sourceTree = "<group>"; };
+		EB0A3A2D234C1B8E00E7FCFF /* PeerViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PeerViewManager.h; sourceTree = "<group>"; };
+		EB0A3A2E234C1B8E00E7FCFF /* PeerViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PeerViewManager.m; sourceTree = "<group>"; };
 		EB315D582341E5E800F23BDD /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		EB315D5A2341E5FA00F23BDD /* transcoder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = transcoder.framework; path = custom_frameworks/transcoder.framework; sourceTree = "<group>"; };
 		EB315D5B2341E5FA00F23BDD /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = custom_frameworks/SocketIO.framework; sourceTree = "<group>"; };
@@ -124,6 +131,8 @@
 		EB315D622341E5FB00F23BDD /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = custom_frameworks/Starscream.framework; sourceTree = "<group>"; };
 		EB315D632341E5FB00F23BDD /* PI_Process.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PI_Process.framework; path = custom_frameworks/PI_Process.framework; sourceTree = "<group>"; };
 		EB315D642341E5FB00F23BDD /* PSCocosEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PSCocosEngine.framework; path = custom_frameworks/PSCocosEngine.framework; sourceTree = "<group>"; };
+		EB45E9632341F553002951B1 /* SDKManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDKManager.h; sourceTree = "<group>"; };
+		EB45E9642341F553002951B1 /* SDKManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDKManager.m; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -199,6 +208,12 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				EB45E9632341F553002951B1 /* SDKManager.h */,
+				EB45E9642341F553002951B1 /* SDKManager.m */,
+				EB0A3A2D234C1B8E00E7FCFF /* PeerViewManager.h */,
+				EB0A3A2E234C1B8E00E7FCFF /* PeerViewManager.m */,
+				EB0A3A2A234C1ABC00E7FCFF /* PeerView.h */,
+				EB0A3A2B234C1ABC00E7FCFF /* PeerView.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
@@ -615,7 +630,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB0A3A2C234C1ABC00E7FCFF /* PeerView.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				EB45E9652341F553002951B1 /* SDKManager.m in Sources */,
+				EB0A3A2F234C1B8E00E7FCFF /* PeerViewManager.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -712,6 +730,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 22A7913D5CB7608172265599 /* Pods-demo.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -742,6 +761,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C9E036092FA471BC255CA1CD /* Pods-demo.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
