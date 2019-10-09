@@ -12,9 +12,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum : NSUInteger {
+  RoomStatusInit,
+  RoomStatusPreview,
+  RoomStatusJoined,
+  RoomStatusLeave,
+} RoomStatus;
+
 @class PeerView;
 
 @interface SDKManager : NSObject<RCTBridgeModule>
+@property (nonatomic, assign) RoomStatus roomStatus;
 +(instancetype)shared;
 -(PeerView *)peerView;
 @end

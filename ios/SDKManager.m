@@ -11,10 +11,12 @@
 #import <PI_iRoom/PIiRoomPeer.h>
 #import <PI_iRoom/PIiOSPlayerExtraOptions.h>
 #import "PeerView.h"
+
 @interface SDKManager()<PILayoutController,PIUserWindowUpdateListener, PeerDelegate>
 @property (nonatomic, strong)PIiRoomPeer *peer;
 @property (nonatomic, strong)PeerView *peerView;
 @property (nonatomic, strong)NSString *Uid;
+//@property (nonatomic, assign)BOOL peerConfiged;
 @end
 @implementation SDKManager
 
@@ -25,21 +27,59 @@ RCT_EXPORT_METHOD(testMethod:(NSString*)name num:(NSInteger)num
   NSLog(@"Pretending to create an event %@ at %ld", name, num);
   callback(@[[NSNull null], @"callBackStr"]);
 }
-RCT_EXPORT_METHOD(joinAsParticipatorWithRoomId:(NSString*)roomId
-                  findEventsWithCallback:(RCTResponseSenderBlock)callback){
+RCT_EXPORT_METHOD(joinWithRoomId:(NSString*)roomId Cid:(NSString*)cId Role:(NSInteger)role
+                  WithCallback:(RCTResponseSenderBlock)callback){
   NSLog(@"func:%s --- %@", __func__, roomId);
   SDKManager * sharedM = [SDKManager shared];
-  [sharedM.peer joinAsParticipatorWithRoomId:roomId withTurnpUrl:nil withCdnPlayUrl:nil];
-  NSArray *roomArr = [sharedM.peer getJoinedRooms];
-  NSArray *userArr = [sharedM.peer getAllPlayers];
+  if (sharedM.roomStatus == RoomStatusJoined) {
+    return;
+  }
+  sharedM.roomStatus = RoomStatusJoined;
+  switch (role) {
+    case ROLE_NORMAL:{
+      [sharedM.peer joinAsParticipatorWithRoomId:roomId withTurnpUrl:nil withCdnPlayUrl:nil];
+    }
+      break;
+    case ROLE_VIEWER:{
+      [sharedM.peer joinAsViewerWithRoomId:roomId withPlayStreamMode:PLAY_STREAM_MODE_LOW_DELAY withCreatorUid:cId withUrl:nil];
+    }
+      break;
+      
+    default:
+      break;
+  }
   
 }
-RCT_EXPORT_METHOD(joinAsViewerWithRoomId:(NSString*)roomId Uid:(NSString*)Uid
-                  findEventsWithCallback:(RCTResponseSenderBlock)callback){
+RCT_EXPORT_METHOD(changeIntoRole:(NSInteger)role RoomId:(NSString*)roomId Cid:(NSString*)cId
+                  WithCallback:(RCTResponseSenderBlock)callback){
+                    SDKManager * sharedM = [SDKManager shared];
+  if (sharedM.roomStatus != RoomStatusJoined) {
+    return;
+  }
+  switch (role) {
+    case ROLE_NORMAL:{
+      [sharedM.peer changeToParticipatorWithRoomId:roomId withTurnpUrl:nil withCdnPlayUrl:nil];
+    }
+      break;
+    case ROLE_VIEWER:{
+      [sharedM.peer changeToViewerWithRoomId:roomId withPlayStreamMode:PLAY_STREAM_MODE_LOW_DELAY withCreatorUid:cId withUrl:nil];
+    }
+      break;
+      
+    default:
+      break;
+  }
+  
+}
+RCT_EXPORT_METHOD(leaveRoomId:(NSString*)roomId){
   NSLog(@"func:%s --- %@", __func__, roomId);
   SDKManager * sharedM = [SDKManager shared];
-  [sharedM.peer joinAsViewerWithRoomId:roomId withPlayStreamMode:PLAY_STREAM_MODE_LOW_DELAY withCreatorUid:Uid withUrl:nil];
-  
+  sharedM.roomStatus = RoomStatusLeave;
+  if (!sharedM.peer) {
+    return;
+  }
+  [sharedM.peer forceShutdown];
+  sharedM.peer = nil;
 }
 
 static SDKManager *_sharedSDKManager;
@@ -146,6 +186,7 @@ static SDKManager *_sharedSDKManager;
                     processSetParam:param
                      roomViewConfig:viewConfig];
 }
+
 #pragma mark --Geeter & Setter
 -(PIiRoomPeer *)peer{
   if (!_peer) {
@@ -157,11 +198,13 @@ static SDKManager *_sharedSDKManager;
   if (!_peerView) {
     _peerView = [[PeerView alloc] init];
     _peerView.backgroundColor = [UIColor greenColor];
+  }
+  if (self.roomStatus == RoomStatusInit) {
+    self.roomStatus = RoomStatusPreview;
+    _peerView.uid = self.Uid;
+    _peerView.bounds = [UIScreen mainScreen].bounds;
     [self config];
   }
-  NSLog(@"1111111111");
-  
-  _peerView.bounds = [UIScreen mainScreen].bounds;
   return _peerView;
 }
 -(NSString *)Uid{
@@ -173,25 +216,15 @@ static SDKManager *_sharedSDKManager;
     }else{
       _Uid = @"1";
     }
-    
   }
   return _Uid;
 }
 #pragma mark --PILayoutController
 - (id)createWindowContainer:(NSString *)rid uid:(NSString *)uid veName:(NSString *)veName {
-  NSLog(@"func is -- %s", __func__);
-  CGFloat hei = self.peerView.bounds.size.height * 0.5;
-  CGFloat wid = self.peerView.bounds.size.width;
-  UIView * view = [[UIView alloc] init];
-  if ([uid isEqualToString:self.Uid]) {
-    view.backgroundColor = [UIColor blueColor];
-    view.frame = CGRectMake(0, 0, wid, hei);
-  }else{
-    view.backgroundColor = [UIColor redColor];
-    view.frame = CGRectMake(0, hei, wid, hei);
-  }
+  NSLog(@"func is -- %s, rid is %@, uid is %@, veName is %@", __func__, rid, uid, veName);
   
-  [self.peerView addSubview:view];
+  UIView *view = [self.peerView addVideoViewWithRoomId:rid uid:uid veName:veName];
+  [self.peerView resetUI];
   return view;
 }
 
@@ -199,14 +232,20 @@ static SDKManager *_sharedSDKManager;
 
 - (void)onWindowAdded:(PIUserWindow *)window {
   
+  NSLog(@"func is ---- %s", __func__);
 }
 
 - (void)onWindowMoved:(PIUserWindow *)before After:(PIUserWindow *)after {
   
+  NSLog(@"func is ---- %s", __func__);
 }
 
 - (void)onWindowRemoved:(PIUserWindow *)window {
   
+  NSLog(@"func is ---- %s", __func__);
+  
+  [self.peerView removeVideoViewWithRoomId:window.rid uid:window.uid veName:window.veName];
+  [self.peerView resetUI];
 }
 #pragma mark --PeerDelegate
 

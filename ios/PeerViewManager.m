@@ -14,6 +14,8 @@ RCT_EXPORT_MODULE(PeerView)
 
 - (UIView *)view
 {
-  return (UIView *)[SDKManager shared].peerView;
+  SDKManager *sdkM = [SDKManager shared];
+  sdkM.roomStatus = RoomStatusInit;
+  return (UIView *)sdkM.peerView;
 }
 @end

@@ -1,14 +1,24 @@
 import React, { PureComponent } from 'react';
-import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { AppRegistry, StyleSheet, Text, Button, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import PeerView from './PeerView'
 import {NativeModules} from 'react-native';
 
-const SDKManager = NativeModules.SDKManager;
-const peerStart = "start";
-const peerJoin = "join";
-// CalendarManager.addEvent('Birthday Party', '4 Privet Drive, Surrey');
+const PeerStatus = {
+  Preverw: "Start",
+  Join: "Join",
+};
+const Role = {
+  Normal: {text:'Normal',idx:2},
+  Viewer: {text:'Viewer',idx:3},
+};
 
+const SDKManager = NativeModules.SDKManager;
+const roomId = "10010";
+const cId = "1";
+
+// const defaultPeerStatus = PeerStatus.Preverw;
+// const defaultRole = Role.Normal;
 export default class ExampleApp extends PureComponent {
 
   /**
@@ -17,60 +27,91 @@ export default class ExampleApp extends PureComponent {
    * @static
    * @memberof ExampleApp
    */
-  static navigationOptions = {
-    headerBackTitleStyle:{color: "black"},
-    headerTintColor: "black",
+  static navigationOptions = ({navigation}) => {
+    // headerBackTitleStyle:{color: "black"},
+    // headerTintColor: "black",
+    return({
+    headerLeft: (
+      <Button
+        onPress={() => 
+          // alert('这是个按钮!')
+          {
+          SDKManager.leaveRoomId(roomId);
+          navigation.goBack();}
+        }
+        title="Back"
+        color="black"
+      />
+    ),})
   };
+
   constructor(props) {
     super(props);
     this.state = {
-      peerStatus: peerStart, 
+      peerStatus: PeerStatus.Preverw, 
+      role: Role.Normal, 
     };
   }
   render() {
     return (
       <View style={styles.container}>
         <PeerView style={styles.preview}>
+        <Text style={{ fontSize: 14}}> {this.state.peerStatus} </Text>
         </PeerView>
         {/* 相机下方的SNAP按钮 */}
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center', backgroundColor: "white" }}>
-          <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
+          <TouchableOpacity onPress={this.joinRoom.bind(this)} style={styles.capture}>
             <Text style={{ fontSize: 14}}> {this.state.peerStatus} </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.changeRole.bind(this)} style={styles.capture}>
+            <Text style={{ fontSize: 14}}> {this.state.role.text} </Text>
           </TouchableOpacity>
         </View>
       </View>
     );
   }
 
-  /**
-   *按下SNAP按钮时的相应方法，打印url
-   *
-   * @memberof ExampleApp
-   */
-  takePicture = async() => {
-    SDKManager.joinAsParticipatorWithRoomId("10010",(error, events) => {
+  changeRole = async() => {
+    var nRole = (this.state.role.text === Role.Normal.text)?Role.Viewer:Role.Normal;
+    this.setState({
+      role: nRole, 
+    });
+    SDKManager.changeIntoRole(nRole.idx, roomId, cId, (error, events) => {
       if (error) {
         console.error(error);
       } else {
         console.log(events);
       }
     });
-    if(this.state.peerStatus === peerStart){
+  };
+
+  joinRoom = async() => {
+    SDKManager.joinWithRoomId(roomId, cId, this.state.role.idx, (error, events) => {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log(events);
+      }
+    });
+    if(this.state.peerStatus === PeerStatus.Preverw){
       this.setState({
-        peerStatus: peerJoin,
+        peerStatus: PeerStatus.Join,
       })
     }else{
       this.setState({
-        peerStatus: peerStart,
+        peerStatus: PeerStatus.Preverw,
       })
     }
+    
     console.log(this.state.peerStatus)
-    // if (this.camera) {
-    //   const options = { quality: 0.5, base64: true };
-    //   const data = await this.camera.takePictureAsync(options);
-    //   console.log(data.uri);
-    // }
   };
+
+  goBack = () =>{
+    alert('这是个按钮!');
+    console.log('这是个按钮!');
+    this.props.navigation.goBack();
+  };
+
 }
 // 各个视图的style
 const styles = StyleSheet.create({
