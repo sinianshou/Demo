@@ -33,18 +33,21 @@ export default class ExampleApp extends PureComponent {
     return({
     headerLeft: (
       <Button
-        onPress={() => 
-          // alert('这是个按钮!')
-          {
-          SDKManager.leaveRoomId(roomId);
-          navigation.goBack();}
-        }
+        // onPress={() => 
+        //   // alert('这是个按钮!')
+        //   {
+        //   SDKManager.leaveRoomId(roomId);
+        //   navigation.goBack();}
+        // }
+        onPress={navigation.getParam('goBack')}
         title="Back"
         color="black"
       />
     ),})
   };
-
+  componentDidMount() {
+    this.props.navigation.setParams({ goBack: this._goBack });
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -106,9 +109,10 @@ export default class ExampleApp extends PureComponent {
     console.log(this.state.peerStatus)
   };
 
-  goBack = () =>{
+  _goBack = () =>{
     alert('这是个按钮!');
     console.log('这是个按钮!');
+    SDKManager.leaveRoomId(roomId);
     this.props.navigation.goBack();
   };
 
